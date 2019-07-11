@@ -1,13 +1,33 @@
 /* eslint-disable quotes */
 import React, { Component } from "react";
-import { Text, View } from "react-native";
+import Onboarding from "react-native-onboarding-swiper";
 
-export default class Onboarding extends Component {
+export default class OnboardingScreen extends Component {
   render() {
     return (
-      <View>
-        <Text> Onboarding </Text>
-      </View>
+      <Onboarding
+        controlStatusBar={true}
+        pages={[
+          {
+            backgroundColor: "#fff",
+            image: null,
+            title: "Welcome",
+            subtitle: "Welcome to the Fire Fighter App",
+          },
+          {
+            backgroundColor: "#000",
+            image: null,
+            title: "Onboarding",
+            subtitle: "Done with React Native Onboarding Swiper",
+          },
+          {
+            backgroundColor: "green",
+            image: null,
+            title: "Onboarding",
+            subtitle: "Done with React Native Onboarding Swiper",
+          }
+        ]}
+      />
     );
   }
 }
