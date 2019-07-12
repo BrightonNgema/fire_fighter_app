@@ -7,11 +7,13 @@ import {
   ImageBackground,
   StyleSheet,
   Platform,
+  View,
   TouchableOpacity
 } from "react-native";
-
+import * as Animatable from "react-native-animatable";
 const bgImage =
   "https://images.unsplash.com/photo-1554256092-96709174126a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=802&q=80";
+const AnimatedButton = Animatable.createAnimatableComponent(TouchableOpacity);
 export default class Home extends Component {
   navigate = () => {
     this.props.navigation.navigate("Confirm");
@@ -21,9 +23,17 @@ export default class Home extends Component {
     return (
       <ImageBackground source={{ uri: bgImage }} style={styles.MainContainer}>
         <StatusBar barStyle="light-content" />
-        <TouchableOpacity style={styles.bottomView} onPress={this.navigate}>
-          <Text style={styles.textStyle}>FIRE</Text>
-        </TouchableOpacity>
+        <AnimatedButton
+          animation="pulse"
+          easing="ease-out"
+          iterationCount="infinite"
+          style={styles.ring}
+          onPress={this.navigate}
+        >
+          <View style={styles.innerCircle}>
+            <Text style={styles.textStyle}>FIRE</Text>
+          </View>
+        </AnimatedButton>
       </ImageBackground>
     );
   }
@@ -36,19 +46,40 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     paddingTop: Platform.OS === "ios" ? 20 : 0
   },
+  innerCircle: {
+    height: 100,
+    width: 100,
+    borderRadius: 50,
+    backgroundColor: "red",
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  ring: {
+    position: "absolute",
+    bottom: "10%",
+    height: 120,
+    width: 120,
+    borderRadius: 60,
+    backgroundColor: "transparent",
+    borderColor: "red",
+    borderWidth: 3,
+    justifyContent: "center",
+    alignItems: "center"
+  },
 
   bottomView: {
-    width: "50%",
-    height: 50,
-    backgroundColor: "#FF9800",
     justifyContent: "center",
     alignItems: "center",
     position: "absolute",
-    bottom: "20%"
+    bottom: "10%",
+    backgroundColor: "yellow",
+    height: 120,
+    width: 120,
+    borderRadius: 60
   },
-
   textStyle: {
-    color: "#fff",
-    fontSize: 22
+    fontSize: 30,
+    fontWeight: "bold",
+    color: "#142627"
   }
 });
