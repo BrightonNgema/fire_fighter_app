@@ -10,6 +10,8 @@ export default class OnboardingScreen extends Component {
     return (
       <Onboarding
         controlStatusBar={true}
+        onDone={() => this.props.navigation.navigate("Home")}
+        onSkip={() => this.props.navigation.navigate("Home")}
         pages={[
           {
             backgroundColor: "#E8142E",
@@ -17,18 +19,18 @@ export default class OnboardingScreen extends Component {
               <Image
                 source={{
                   uri:
-                    "https://i.pinimg.com/originals/06/d2/da/06d2daf6d0f6faddecdb1c8149c790eb.gif",
+                    "https://i.pinimg.com/originals/06/d2/da/06d2daf6d0f6faddecdb1c8149c790eb.gif"
                 }}
                 style={{
                   width: 100,
                   height: 100,
                   resizeMode: "contain",
-                  top: -300,
+                  top: -300
                 }}
               />
             ),
             title: "Welcome",
-            subtitle: "Welcome to the Fire Fighter App",
+            subtitle: "Welcome to the Fire Fighter App"
           },
           {
             backgroundColor: "#000",
@@ -36,13 +38,13 @@ export default class OnboardingScreen extends Component {
               <Image
                 source={{
                   uri:
-                    "https://i.pinimg.com/originals/c3/e0/bc/c3e0bc6b273c2a3aa75a259a5e61b0e6.png",
+                    "https://i.pinimg.com/originals/c3/e0/bc/c3e0bc6b273c2a3aa75a259a5e61b0e6.png"
                 }}
                 style={{ width: 100, height: 100, resizeMode: "contain" }}
               />
             ),
             title: "Onboarding",
-            subtitle: "Done with React Native Onboarding Swiper",
+            subtitle: "Done with React Native Onboarding Swiper"
           },
           {
             backgroundColor: "green",
@@ -50,14 +52,14 @@ export default class OnboardingScreen extends Component {
               <Image
                 source={{
                   uri:
-                    "https://i.pinimg.com/originals/c3/e0/bc/c3e0bc6b273c2a3aa75a259a5e61b0e6.png",
+                    "https://i.pinimg.com/originals/c3/e0/bc/c3e0bc6b273c2a3aa75a259a5e61b0e6.png"
                 }}
                 style={{ width: 100, height: 100, resizeMode: "contain" }}
               />
             ),
             title: "Onboarding",
-            subtitle: "Done with React Native Onboarding Swiper",
-          }
+            subtitle: "Done with React Native Onboarding Swiper"
+          },
         ]}
       />
     );

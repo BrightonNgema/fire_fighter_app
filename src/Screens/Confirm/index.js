@@ -1,3 +1,4 @@
+/* eslint-disable comma-dangle */
 /* eslint-disable quotes */
 import React, { Component } from "react";
 import {
@@ -7,6 +8,7 @@ import {
   ImageBackground,
   StyleSheet,
   Image,
+  Platform
 } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
@@ -21,58 +23,28 @@ export default class Confirm extends Component {
           <TouchableOpacity
             activeOpacity={0.7}
             onPress={() => this.props.navigation.goBack()}
-            style={{
-              height: 30,
-              width: 30,
-              borderRadius: 15,
-              flex: 1,
-              backgroundColor: "#fff"
-            }}
+            style={styles.IconContainer}
           >
             <Image
               source={{
-                uri: "https://image.flaticon.com/icons/png/512/53/53804.png",
+                uri: "https://image.flaticon.com/icons/png/512/53/53804.png"
               }}
-              style={{
-                height: 15,
-                marginTop: 8,
-                resizeMode: "contain",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
+              style={styles.Icon}
             />
           </TouchableOpacity>
         </View>
         <View style={styles.bottomView}>
           <TouchableOpacity
             activeOpacity={0.7}
-            style={{
-              height: 65,
-              width: "100%",
-              backgroundColor: "#FFF200",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
+            style={{ ...styles.Buttons, ...styles.yellow }}
           >
-            <Text style={{ fontSize: 20, fontWeight: "800", color: "#000" }}>
-              {" "}
-              CORRECT ADDRESS
-            </Text>
+            <Text style={styles.blackText}> CORRECT ADDRESS</Text>
           </TouchableOpacity>
           <TouchableOpacity
             activeOpacity={0.7}
-            style={{
-              height: 65,
-              width: "100%",
-              backgroundColor: "#E1251C",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
+            style={{ ...styles.Buttons, ...styles.red }}
           >
-            <Text style={{ fontSize: 20, fontWeight: "800", color: "#fff" }}>
-              {" "}
-              CONFIRM
-            </Text>
+            <Text style={styles.whiteText}> CONFIRM</Text>
           </TouchableOpacity>
         </View>
       </ImageBackground>
@@ -89,17 +61,39 @@ const styles = StyleSheet.create({
   topView: {
     position: "absolute",
     right: 30,
-    top: 50,
+    top: 50
   },
-
   bottomView: {
     position: "absolute",
     bottom: 0,
-    width: "100%",
+    width: "100%"
   },
-
-  textStyle: {
-    color: "#fff",
-    fontSize: 22
+  Buttons: {
+    height: 65,
+    width: "100%",
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  yellow: {
+    backgroundColor: "#FFF200"
+  },
+  red: {
+    backgroundColor: "#E1251C"
+  },
+  blackText: { fontSize: 20, fontWeight: "800", color: "#000" },
+  whiteText: { fontSize: 20, fontWeight: "800", color: "#fff" },
+  IconContainer: {
+    height: 30,
+    width: 30,
+    borderRadius: 15,
+    flex: 1,
+    backgroundColor: "#fff"
+  },
+  Icon: {
+    height: 15,
+    marginTop: 8,
+    resizeMode: "contain",
+    alignItems: "center",
+    justifyContent: "center"
   }
 });

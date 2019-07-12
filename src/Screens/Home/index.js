@@ -1,3 +1,4 @@
+/* eslint-disable comma-dangle */
 /* eslint-disable quotes */
 import React, { Component } from "react";
 import {
@@ -6,7 +7,7 @@ import {
   ImageBackground,
   StyleSheet,
   Platform,
-  TouchableOpacity,
+  TouchableOpacity
 } from "react-native";
 
 const bgImage =
