@@ -2,15 +2,27 @@ import React from 'react';
 import { View, Text } from 'react-native';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 
-import { Home, Onboarding } from './src/Screens';
+import { Onboarding, Home, Confirm } from "./src/Screens";
 
-const AppNavigator = createStackNavigator({
-  Onboarding: {
-    screen: Onboarding,
+const AppNavigator = createStackNavigator(
+  {
+    Onboarding: {
+      screen: Onboarding,
+    },
+    Home: {
+      screen: Home,
+    },
+    Confirm: {
+      screen: Confirm,
+    },
   },
-  Home: {
-    screen: Home,
-  },
-});
+  {
+    initialRouteName: 'Onboarding',
+    headerMode: 'none',
+    navigationOptions: {
+      headerVisible: false,
+    }
+  }
+);
 
 export default createAppContainer(AppNavigator);
