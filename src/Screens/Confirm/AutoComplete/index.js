@@ -24,7 +24,7 @@ const GooglePlacesInput = ({ correctAddress, onSearch }) => {
         renderDescription={row => row.description || row.vicinity}
         query={{
           components: "country:za",
-          key: "AIzaSyBZOul-4nOyCtHevdBNdoRkIJM2l3Fk7fo",
+          key: "", //Get key
           language: "en", // language of the results
         }}
         GooglePlacesSearchQuery={{
