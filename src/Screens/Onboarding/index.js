@@ -1,7 +1,7 @@
 /* eslint-disable quotes */
 import React, { Component } from "react";
 import Onboarding from "react-native-onboarding-swiper";
-import { Image } from "react-native";
+import { Image, View } from "react-native";
 
 const fire =
   "https://i.pinimg.com/originals/c3/e0/bc/c3e0bc6b273c2a3aa75a259a5e61b0e6.png";
