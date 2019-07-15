@@ -37,6 +37,13 @@
 			remoteGlobalIDString = 2D02E47A1E0B4A5D006451C7;
 			remoteInfo = "fire_fighter-tvOS";
 		};
+		BD5588CE22DCB7FB000BD12C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BD5588CA22DCB7FB000BD12C /* RNGeocoder.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BF8FCF941BFFB184000FCD37;
+			remoteInfo = RNGeocoder;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -62,6 +69,7 @@
 		9B42052657831155EA491D56 /* Pods-fire_fighterTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fire_fighterTests.release.xcconfig"; path = "Target Support Files/Pods-fire_fighterTests/Pods-fire_fighterTests.release.xcconfig"; sourceTree = "<group>"; };
 		9FF8909FC8159ED31C180288 /* libPods-fire_fighter-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-fire_fighter-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC25D7B83F1CB64DFBB9CFCF /* libPods-fire_fighter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-fire_fighter.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BD5588CA22DCB7FB000BD12C /* RNGeocoder.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNGeocoder.xcodeproj; path = "../node_modules/react-native-geocoder/ios/RNGeocoder.xcodeproj"; sourceTree = "<group>"; };
 		C99117F9F40EFCB6B98863F0 /* Pods-fire_fighter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fire_fighter.release.xcconfig"; path = "Target Support Files/Pods-fire_fighter/Pods-fire_fighter.release.xcconfig"; sourceTree = "<group>"; };
 		DC8F5CFDCD641D65777867F7 /* Pods-fire_fighter-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fire_fighter-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-fire_fighter-tvOSTests/Pods-fire_fighter-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
@@ -167,6 +175,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				BD5588CA22DCB7FB000BD12C /* RNGeocoder.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -193,6 +202,14 @@
 				00E356EE1AD99517003FC87E /* fire_fighterTests.xctest */,
 				2D02E47B1E0B4A5D006451C7 /* fire_fighter-tvOS.app */,
 				2D02E4901E0B4A5D006451C7 /* fire_fighter-tvOSTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		BD5588CB22DCB7FB000BD12C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				BD5588CF22DCB7FB000BD12C /* libRNGeocoder.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -318,6 +335,12 @@
 			mainGroup = 83CBB9F61A601CBA00E9B192;
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = BD5588CB22DCB7FB000BD12C /* Products */;
+					ProjectRef = BD5588CA22DCB7FB000BD12C /* RNGeocoder.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				13B07F861A680F5B00A75B9A /* fire_fighter */,
@@ -327,6 +350,16 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		BD5588CF22DCB7FB000BD12C /* libRNGeocoder.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNGeocoder.a;
+			remoteRef = BD5588CE22DCB7FB000BD12C /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		00E356EC1AD99517003FC87E /* Resources */ = {

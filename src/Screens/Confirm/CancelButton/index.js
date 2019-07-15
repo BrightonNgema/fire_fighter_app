@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import React from "react";
+import { View, StyleSheet, Image, TouchableOpacity } from "react-native";
 const CancelButton = ({ navigation }) => {
   return (
     <View style={styles.topView}>
@@ -10,7 +10,7 @@ const CancelButton = ({ navigation }) => {
       >
         <Image
           source={{
-            uri: "https://image.flaticon.com/icons/png/512/53/53804.png"
+            uri: 'https://image.flaticon.com/icons/png/512/53/53804.png',
           }}
           style={styles.Icon}
         />
@@ -21,21 +21,21 @@ const CancelButton = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   topView: {
-    position: 'absolute',
-    right: 30,
-    top: 50,
+    position: "absolute",
+    right: 20,
+    top: "3%"
   },
   IconContainer: {
     height: 30,
     width: 30,
     borderRadius: 15,
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff"
   },
   Icon: {
     height: 15,
     marginTop: 8,
-    resizeMode: 'contain',
-  },
+    resizeMode: "contain"
+  }
 });
 export { CancelButton };

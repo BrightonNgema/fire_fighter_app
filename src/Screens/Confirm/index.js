@@ -2,44 +2,80 @@
 /* eslint-disable quotes */
 import React, { Component } from "react";
 import { View, StyleSheet } from "react-native";
-// import MapboxGL from "@mapbox/react-native-mapbox-gl";
+import Geolocation from "@react-native-community/geolocation";
 import { TwoButtons } from "./Buttons";
 import { CancelButton } from "./CancelButton";
 import { GooglePlacesInput } from "./AutoComplete";
 import MapView, { Marker } from "react-native-maps";
+import Geocoder from "react-native-geocoder";
+
 export default class Confirm extends Component {
   constructor(props) {
     super(props);
     this.state = {
       currentLoc: true,
       correctAddress: false,
+      address: {
+        coords: {},
+        fullAddress: ""
+      },
       loading: true,
       region: {
         latitude: 37.78825,
         longitude: -122.4324,
-        latitudeDelta: 0.0922,
-        longitudeDelta: 0.0421
+        latitudeDelta: 0.0122,
+        longitudeDelta: 0.0121
       }
     };
   }
 
   componentDidMount() {
     this.setState({ loading: false });
-    //Get current location
+    Geolocation.getCurrentPosition(info => {
+      this.setState(
+        {
+          region: {
+            latitude: info.coords.latitude,
+            longitude: info.coords.longitude,
+            latitudeDelta: 0.0122,
+            longitudeDelta: 0.0121
+          }
+        },
+        () => this.GeoCoding()
+      );
+    });
   }
 
-  // componentWillUnmount() {
-  //   navigator.geolocation.clearWatch(this.watchID);
-  // }
+  GeoCoding = () => {
+    const coords = {
+      lat: this.state.region.latitude,
+      lng: this.state.region.longitude
+    };
+    let _this = this;
+    Geocoder.geocodePosition(coords)
+      .then(res => {
+        _this.setState({
+          address: {
+            coords: res[0].position,
+            fullAddress: res[0].formattedAddress
+          }
+        });
+      })
+      .catch(err => console.log(err));
+  };
 
   _suggestionSelect = (data, details) => {
-    this.setState({
-      region: {
-        latitude: details.geometry.location.lat,
-        longitude: details.geometry.location.lng,
-        ...this.state.region
-      }
-    });
+    this.setState(
+      {
+        region: {
+          latitude: details.geometry.location.lat,
+          longitude: details.geometry.location.lng,
+          latitudeDelta: 0.0122,
+          longitudeDelta: 0.0121
+        }
+      },
+      () => this.GeoCoding()
+    );
   };
 
   correctAddress = () => {
@@ -48,19 +84,17 @@ export default class Confirm extends Component {
     }));
   };
 
-  onRegionChange = region => {
-    this.setState({ region });
-  };
-
   onDragged = e => {
-    console.log(e.nativeEvent.coordinate);
-    this.setState({
-      region: {
-        ...e.nativeEvent.coordinate,
-        latitudeDelta: 0.0922,
-        longitudeDelta: 0.0421
-      }
-    });
+    this.setState(
+      {
+        region: {
+          ...e.nativeEvent.coordinate,
+          latitudeDelta: 0.0122,
+          longitudeDelta: 0.0121
+        }
+      },
+      () => this.GeoCoding()
+    );
   };
 
   render() {
@@ -70,11 +104,9 @@ export default class Confirm extends Component {
     }
     return (
       <View style={styles.MainContainer}>
-        <View style={{ flex: 0.86 }}>
+        <View style={{ height: "100%" }}>
           <MapView
             style={{ height: "100%", width: "100%" }}
-            onUserLocationChange={e => console.log("currentloc", e)}
-            onRegionChange={this.onRegionChange}
             region={this.state.region}
             onPress={this.onDragged}
           >
@@ -97,9 +129,9 @@ export default class Confirm extends Component {
           />
           <CancelButton {...this.props} />
         </View>
-        <View style={{ flex: 0.16 }}>
+        <View style={{ position: "absolute", bottom: 0, width: "100%" }}>
           <TwoButtons
-            onConfirm={() => alert("Sends to backend")}
+            onConfirm={() => alert(JSON.stringify(this.state.address))}
             onCorrectAddress={this.correctAddress}
             {...this.state}
           />
