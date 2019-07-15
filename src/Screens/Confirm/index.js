@@ -1,15 +1,22 @@
 /* eslint-disable comma-dangle */
 /* eslint-disable quotes */
 import React, { Component } from "react";
-import { View, StyleSheet, StatusBar } from "react-native";
+import { View, StyleSheet, StatusBar, Image } from "react-native";
 import Geolocation from "@react-native-community/geolocation";
 import { TwoButtons } from "./Buttons";
 import { CancelButton } from "./CancelButton";
 import { GooglePlacesInput } from "./AutoComplete";
 import MapView, { Marker } from "react-native-maps";
 import Geocoder from "react-native-geocoder";
+import { TouchableOpacity } from "react-native";
+import CurrentLocationButton from "./CurrentLocation";
 
 const fireIcon = "https://img.icons8.com/color/144/000000/fire-element.png";
+
+const Delta = {
+  latitudeDelta: 0.0322,
+  longitudeDelta: 0.0021
+};
 export default class Confirm extends Component {
   constructor(props) {
     super(props);
@@ -24,28 +31,30 @@ export default class Confirm extends Component {
       region: {
         latitude: 37.78825,
         longitude: -122.4324,
-        latitudeDelta: 0.0122,
-        longitudeDelta: 0.0121
+        ...Delta
       }
     };
   }
 
   componentDidMount() {
     this.setState({ loading: false });
+    this.currentLocation();
+  }
+
+  currentLocation = () => {
     Geolocation.getCurrentPosition(info => {
       this.setState(
         {
           region: {
             latitude: info.coords.latitude,
             longitude: info.coords.longitude,
-            latitudeDelta: 0.0122,
-            longitudeDelta: 0.0121
+            ...Delta
           }
         },
         () => this.GeoCoding()
       );
     });
-  }
+  };
 
   GeoCoding = () => {
     const coords = {
@@ -69,9 +78,7 @@ export default class Confirm extends Component {
     this.setState({
       region: {
         latitude: details.geometry.location.lat,
-        longitude: details.geometry.location.lng,
-        latitudeDelta: 0.0122,
-        longitudeDelta: 0.0121
+        longitude: details.geometry.location.lng
       },
       address: {
         coords: details.geometry.location,
@@ -91,8 +98,7 @@ export default class Confirm extends Component {
       {
         region: {
           ...e.nativeEvent.coordinate,
-          latitudeDelta: 0.0122,
-          longitudeDelta: 0.0121
+          ...Delta
         }
       },
       () => this.GeoCoding()
@@ -133,6 +139,10 @@ export default class Confirm extends Component {
             onSearch={this._suggestionSelect}
           />
           <CancelButton {...this.props} />
+          <CurrentLocationButton
+            onCurrent={this.currentLocation}
+            on={correctAddress}
+          />
         </View>
         <View style={{ position: "absolute", bottom: 0, width: "100%" }}>
           <TwoButtons

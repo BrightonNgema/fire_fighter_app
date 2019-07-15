@@ -16,7 +16,7 @@ const AppNavigator = createStackNavigator(
     },
   },
   {
-    initialRouteName: 'Home',
+    initialRouteName: 'Onboarding',
     headerMode: 'none',
     navigationOptions: {
       headerVisible: false,
