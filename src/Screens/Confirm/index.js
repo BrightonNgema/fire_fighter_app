@@ -9,6 +9,7 @@ import { GooglePlacesInput } from "./AutoComplete";
 import MapView, { Marker } from "react-native-maps";
 import Geocoder from "react-native-geocoder";
 
+const fireIcon = "https://img.icons8.com/color/144/000000/fire-element.png";
 export default class Confirm extends Component {
   constructor(props) {
     super(props);
@@ -65,8 +66,6 @@ export default class Confirm extends Component {
   };
 
   _suggestionSelect = (data, details) => {
-    console.log(data);
-    console.log(details);
     this.setState({
       region: {
         latitude: details.geometry.location.lat,
@@ -115,9 +114,11 @@ export default class Confirm extends Component {
             onPress={this.onDragged}
           >
             <Marker
+              style={{ maxWidth: 10, maxHeight: 10 }}
               coordinate={this.state.region}
               draggable
               onDragEnd={this.onDragged}
+              image={{ uri: fireIcon, height: 5, width: 5 }}
               animateMarkerToCoordinate={{
                 coordinate: [
                   this.state.region.latitude,
