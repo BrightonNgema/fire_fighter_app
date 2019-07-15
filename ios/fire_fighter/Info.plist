@@ -45,10 +45,14 @@
 	<array>
 		<string>armv7</string>
 	</array>
-  <key>NSLocationAlwaysUsageDescription</key>
-  <string>Your location is required for xyz benefits for you</string>
   <key>NSLocationWhenInUseUsageDescription</key>
-  <string>Your location is required for xyz benefits for you</string>
+  <string>Fire App will need to use your location</string>
+  
+  <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+  <string>Fire App will need to use your location</string>
+  
+  <key>NSLocationAlwaysUsageDescription</key>
+  <string>Fire App will need to use your location</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

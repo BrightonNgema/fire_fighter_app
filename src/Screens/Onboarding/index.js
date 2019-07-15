@@ -14,18 +14,17 @@ export default class OnboardingScreen extends Component {
         onSkip={() => this.props.navigation.navigate("Home")}
         pages={[
           {
-            backgroundColor: "#E8142E",
+            backgroundColor: "#fff",
             image: (
               <Image
                 source={{
                   uri:
-                    "https://i.pinimg.com/originals/06/d2/da/06d2daf6d0f6faddecdb1c8149c790eb.gif"
+                    "https://i.pinimg.com/originals/c3/e0/bc/c3e0bc6b273c2a3aa75a259a5e61b0e6.png"
                 }}
                 style={{
-                  width: 100,
-                  height: 100,
+                  width: 300,
+                  height: 300,
                   resizeMode: "contain",
-                  top: -300
                 }}
               />
             ),
@@ -33,28 +32,28 @@ export default class OnboardingScreen extends Component {
             subtitle: "Welcome to the Fire Fighter App"
           },
           {
-            backgroundColor: "#000",
+            backgroundColor: "#fff",
             image: (
               <Image
                 source={{
                   uri:
                     "https://i.pinimg.com/originals/c3/e0/bc/c3e0bc6b273c2a3aa75a259a5e61b0e6.png"
                 }}
-                style={{ width: 100, height: 100, resizeMode: "contain" }}
+                style={{ width: 300, height: 300, resizeMode: "contain" }}
               />
             ),
             title: "Onboarding",
             subtitle: "Done with React Native Onboarding Swiper"
           },
           {
-            backgroundColor: "green",
+            backgroundColor: "#fff",
             image: (
               <Image
                 source={{
                   uri:
                     "https://i.pinimg.com/originals/c3/e0/bc/c3e0bc6b273c2a3aa75a259a5e61b0e6.png"
                 }}
-                style={{ width: 100, height: 100, resizeMode: "contain" }}
+                style={{ width: 300, height: 300, resizeMode: "contain" }}
               />
             ),
             title: "Onboarding",
