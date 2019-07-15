@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
   topView: {
     position: "absolute",
     right: 20,
-    top: "3%"
+    top: "5%"
   },
   IconContainer: {
     height: 30,

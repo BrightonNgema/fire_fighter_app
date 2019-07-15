@@ -1,7 +1,7 @@
 /* eslint-disable comma-dangle */
 /* eslint-disable quotes */
 import React, { Component } from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, StatusBar } from "react-native";
 import Geolocation from "@react-native-community/geolocation";
 import { TwoButtons } from "./Buttons";
 import { CancelButton } from "./CancelButton";
@@ -65,17 +65,20 @@ export default class Confirm extends Component {
   };
 
   _suggestionSelect = (data, details) => {
-    this.setState(
-      {
-        region: {
-          latitude: details.geometry.location.lat,
-          longitude: details.geometry.location.lng,
-          latitudeDelta: 0.0122,
-          longitudeDelta: 0.0121
-        }
+    console.log(data);
+    console.log(details);
+    this.setState({
+      region: {
+        latitude: details.geometry.location.lat,
+        longitude: details.geometry.location.lng,
+        latitudeDelta: 0.0122,
+        longitudeDelta: 0.0121
       },
-      () => this.GeoCoding()
-    );
+      address: {
+        coords: details.geometry.location,
+        fullAddress: details.formatted_address
+      }
+    });
   };
 
   correctAddress = () => {
@@ -104,6 +107,7 @@ export default class Confirm extends Component {
     }
     return (
       <View style={styles.MainContainer}>
+        <StatusBar barStyle="dark-content" />
         <View style={{ height: "100%" }}>
           <MapView
             style={{ height: "100%", width: "100%" }}
