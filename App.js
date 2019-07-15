@@ -1,8 +1,7 @@
-import React from 'react';
-import { View, Text } from 'react-native';
+/* eslint-disable prettier/prettier */
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 
-import { Onboarding, Home, Confirm } from "./src/Screens";
+import { Onboarding, Home, Confirm } from './src/Screens';
 
 const AppNavigator = createStackNavigator(
   {
@@ -17,11 +16,11 @@ const AppNavigator = createStackNavigator(
     },
   },
   {
-    initialRouteName: 'Onboarding',
+    initialRouteName: 'Home',
     headerMode: 'none',
     navigationOptions: {
       headerVisible: false,
-    }
+    },
   }
 );
 

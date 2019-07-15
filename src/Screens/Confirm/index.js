@@ -1,53 +1,147 @@
 /* eslint-disable comma-dangle */
 /* eslint-disable quotes */
 import React, { Component } from "react";
-import {
-  StatusBar,
-  Text,
-  View,
-  ImageBackground,
-  StyleSheet,
-  Image,
-  Platform
-} from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { View, StyleSheet, StatusBar } from "react-native";
+import Geolocation from "@react-native-community/geolocation";
+import { TwoButtons } from "./Buttons";
+import { CancelButton } from "./CancelButton";
+import { GooglePlacesInput } from "./AutoComplete";
+import MapView, { Marker } from "react-native-maps";
+import Geocoder from "react-native-geocoder";
 
-const bgImage =
-  "http://www.theinformationlab.co.uk/wp-content/uploads/2016/02/Light.png";
+const fireIcon = "https://img.icons8.com/color/144/000000/fire-element.png";
 export default class Confirm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      currentLoc: true,
+      correctAddress: false,
+      address: {
+        coords: {},
+        fullAddress: ""
+      },
+      loading: true,
+      region: {
+        latitude: 37.78825,
+        longitude: -122.4324,
+        latitudeDelta: 0.0122,
+        longitudeDelta: 0.0121
+      }
+    };
+  }
+
+  componentDidMount() {
+    this.setState({ loading: false });
+    Geolocation.getCurrentPosition(info => {
+      this.setState(
+        {
+          region: {
+            latitude: info.coords.latitude,
+            longitude: info.coords.longitude,
+            latitudeDelta: 0.0122,
+            longitudeDelta: 0.0121
+          }
+        },
+        () => this.GeoCoding()
+      );
+    });
+  }
+
+  GeoCoding = () => {
+    const coords = {
+      lat: this.state.region.latitude,
+      lng: this.state.region.longitude
+    };
+    let _this = this;
+    Geocoder.geocodePosition(coords)
+      .then(res => {
+        _this.setState({
+          address: {
+            coords: res[0].position,
+            fullAddress: res[0].formattedAddress
+          }
+        });
+      })
+      .catch(err => console.log(err));
+  };
+
+  _suggestionSelect = (data, details) => {
+    this.setState({
+      region: {
+        latitude: details.geometry.location.lat,
+        longitude: details.geometry.location.lng,
+        latitudeDelta: 0.0122,
+        longitudeDelta: 0.0121
+      },
+      address: {
+        coords: details.geometry.location,
+        fullAddress: details.formatted_address
+      }
+    });
+  };
+
+  correctAddress = () => {
+    this.setState(prevState => ({
+      correctAddress: !prevState.correctAddress
+    }));
+  };
+
+  onDragged = e => {
+    this.setState(
+      {
+        region: {
+          ...e.nativeEvent.coordinate,
+          latitudeDelta: 0.0122,
+          longitudeDelta: 0.0121
+        }
+      },
+      () => this.GeoCoding()
+    );
+  };
+
   render() {
+    const { loading, correctAddress } = this.state;
+    if (loading) {
+      return null;
+    }
     return (
-      <ImageBackground source={{ uri: bgImage }} style={styles.MainContainer}>
+      <View style={styles.MainContainer}>
         <StatusBar barStyle="dark-content" />
-        <View style={styles.topView}>
-          <TouchableOpacity
-            activeOpacity={0.7}
-            onPress={() => this.props.navigation.goBack()}
-            style={styles.IconContainer}
+        <View style={{ height: "100%" }}>
+          <MapView
+            style={{ height: "100%", width: "100%" }}
+            region={this.state.region}
+            onPress={this.onDragged}
           >
-            <Image
-              source={{
-                uri: "https://image.flaticon.com/icons/png/512/53/53804.png"
+            <Marker
+              style={{ maxWidth: 10, maxHeight: 10 }}
+              coordinate={this.state.region}
+              draggable
+              onDragEnd={this.onDragged}
+              image={{ uri: fireIcon, height: 5, width: 5 }}
+              animateMarkerToCoordinate={{
+                coordinate: [
+                  this.state.region.latitude,
+                  this.state.region.longitude
+                ],
+                duration: 1000
               }}
-              style={styles.Icon}
             />
-          </TouchableOpacity>
+          </MapView>
+          <GooglePlacesInput
+            correctAddress={correctAddress}
+            onSearch={this._suggestionSelect}
+          />
+          <CancelButton {...this.props} />
         </View>
-        <View style={styles.bottomView}>
-          <TouchableOpacity
-            activeOpacity={0.7}
-            style={{ ...styles.Buttons, ...styles.yellow }}
-          >
-            <Text style={styles.blackText}> CORRECT ADDRESS</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            activeOpacity={0.7}
-            style={{ ...styles.Buttons, ...styles.red }}
-          >
-            <Text style={styles.whiteText}> CONFIRM</Text>
-          </TouchableOpacity>
+        <View style={{ position: "absolute", bottom: 0, width: "100%" }}>
+          <TwoButtons
+            onConfirm={() => alert(JSON.stringify(this.state.address))}
+            onCorrectAddress={this.correctAddress}
+            {...this.state}
+          />
         </View>
-      </ImageBackground>
+      </View>
     );
   }
 }
@@ -55,8 +149,7 @@ export default class Confirm extends Component {
 const styles = StyleSheet.create({
   MainContainer: {
     flex: 1,
-    width: "100%",
-    paddingTop: Platform.OS === "ios" ? 20 : 0
+    width: "100%"
   },
   topView: {
     position: "absolute",
@@ -66,7 +159,8 @@ const styles = StyleSheet.create({
   bottomView: {
     position: "absolute",
     bottom: 0,
-    width: "100%"
+    width: "100%",
+    height: "16%"
   },
   Buttons: {
     height: 65,
