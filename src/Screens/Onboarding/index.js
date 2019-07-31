@@ -14,17 +14,17 @@ export default class OnboardingScreen extends Component {
         onSkip={() => this.props.navigation.navigate("Home")}
         pages={[
           {
-            backgroundColor: "#fff",
+            backgroundColor: "#210A1F",
             image: (
               <Image
                 source={{
                   uri:
-                    "https://i.pinimg.com/originals/c3/e0/bc/c3e0bc6b273c2a3aa75a259a5e61b0e6.png"
+                    "https://i.pinimg.com/originals/78/49/a2/7849a2167f5fe5394c0f0701dd262360.gif"
                 }}
                 style={{
-                  width: 300,
+                  width: "100%",
                   height: 300,
-                  resizeMode: "contain",
+                  resizeMode: "stretch",
                 }}
               />
             ),

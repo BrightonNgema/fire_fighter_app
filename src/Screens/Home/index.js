@@ -14,12 +14,14 @@ import * as Animatable from "react-native-animatable";
 const bgImage =
   "https://images.unsplash.com/photo-1554256092-96709174126a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=802&q=80";
 const AnimatedButton = Animatable.createAnimatableComponent(TouchableOpacity);
-export default class Home extends Component {
+
+class Home extends Component {
   navigate = () => {
     this.props.navigation.navigate("Confirm");
   };
 
   render() {
+    console.log(this.props);
     return (
       <ImageBackground source={{ uri: bgImage }} style={styles.MainContainer}>
         <StatusBar barStyle="light-content" />
@@ -83,3 +85,5 @@ const styles = StyleSheet.create({
     color: "#142627"
   }
 });
+
+export default Home;

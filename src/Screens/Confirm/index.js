@@ -10,14 +10,17 @@ import MapView, { Marker } from "react-native-maps";
 import Geocoder from "react-native-geocoder";
 import { TouchableOpacity } from "react-native";
 import CurrentLocationButton from "./CurrentLocation";
-
+import { withApollo } from "react-apollo";
 const fireIcon = "https://img.icons8.com/color/144/000000/fire-element.png";
+import { mutation } from "graphql-actions";
+
+const { addReport } = mutation;
 
 const Delta = {
   latitudeDelta: 0.0322,
   longitudeDelta: 0.0021
 };
-export default class Confirm extends Component {
+class Confirm extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -39,7 +42,23 @@ export default class Confirm extends Component {
   componentDidMount() {
     this.setState({ loading: false });
     this.currentLocation();
+    this.AddReport();
   }
+
+  AddReport = async () => {
+    try {
+      const data = await this.props.client.mutate({
+        mutation: addReport,
+        variables: {
+          username: "from mobile"
+        }
+      });
+      return console.log(data);;
+    } catch (error) {
+      const message = error.message.replace("GraphQL error: ", "");
+      return { message, status: false };
+    }
+  };
 
   currentLocation = () => {
     Geolocation.getCurrentPosition(info => {
@@ -201,3 +220,5 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   }
 });
+
+export default withApollo(Confirm);
