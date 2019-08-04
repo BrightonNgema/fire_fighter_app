@@ -1,5 +1,6 @@
-import Home from "./Home";
-import Onboarding from "./Onboarding";
-import Confirm from "./Confirm";
+import Home from './Home';
+import Onboarding from './Onboarding';
+import Confirm from './Confirm';
+import Loading from './Loading';
 
-export { Home, Onboarding, Confirm };
+export { Loading, Home, Onboarding, Confirm };

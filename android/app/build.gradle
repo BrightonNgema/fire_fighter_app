@@ -1,5 +1,24 @@
-apply plugin: "com.android.application"
+buildscript {
+  repositories {
+    maven { url 'https://maven.fabric.io/public' }
+  }
 
+  dependencies {
+    // These docs use an open ended version so that our plugin
+    // can be updated quickly in response to Android tooling updates
+
+    // We recommend changing it to the latest version from our changelog:
+    // https://docs.fabric.io/android/changelog.html#fabric-gradle-plugin
+    classpath 'io.fabric.tools:gradle:1.+'
+  }
+}
+
+apply plugin: "com.android.application"
+apply plugin: 'io.fabric'
+
+repositories {
+  maven { url 'https://maven.fabric.io/public' }
+}
 import com.android.build.OutputFile
 
 /**
@@ -104,7 +123,7 @@ def enableProguardInReleaseBuilds = false
  * Note that this variant is about 6MiB larger per architecture than default.
  */
 def useIntlJsc = false
-
+ 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
 
@@ -164,14 +183,19 @@ android {
 }
 
 dependencies {
+       compile('com.crashlytics.sdk.android:crashlytics:2.10.1@aar') {
+            transitive = true;
+        }
     implementation project(':react-native-gesture-handler')
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "com.facebook.react:react-native:+"  // From node_modules
     implementation project(':react-native-geocoder')
+    implementation project(':@react-native-community_async-storage')
     implementation(project(':react-native-maps')){
        exclude group: 'com.google.android.gms', module: 'play-services-base'
        exclude group: 'com.google.android.gms', module: 'play-services-maps'
    }
+   implementation project(':react-native-device-info')
    implementation project(':react-native-community-geolocation')
    implementation 'com.google.android.gms:play-services-base:17.0.0'
    implementation 'com.google.android.gms:play-services-maps:17.0.0'

@@ -1,15 +1,15 @@
 import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 // import ApolloClient, {createNetworkInterface} from 'apollo-client';
-// import { AsyncStorage } from "react-native";
+import AsyncStorage from "@react-native-community/async-storage";
 import { ApolloClient, createNetworkInterface } from 'react-apollo';
 import thunk from 'redux-thunk';
 
 import { reduxStore } from 'redux-actions';
 
 const networkInterface = createNetworkInterface({
-  // uri: 'http://localhost:4444/graphql'
-  uri: 'https://fire-report-api.now.sh/'
+  // uri: "http://localhost:4000/",
+  uri: "https://fire-report-api.now.sh/",
 });
 
 networkInterface.use([
@@ -19,9 +19,10 @@ networkInterface.use([
         req.options.headers = {};
       }
       try {
-        const token =  '';
+        const token = await AsyncStorage.getItem('@token');
+        console.log(token);
         if (token) {
-          req.options.headers.authorization = token || '' || null;
+          req.options.headers.authorization = token || '';
         }
       } catch (error) {
         throw error;

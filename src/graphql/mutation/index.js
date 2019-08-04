@@ -1,3 +1,4 @@
-import { addReport } from "./addReport";
+import { addReport } from './addReport';
+import { registerUser } from './registerUser';
 
-export { addReport };
+export { addReport, registerUser };

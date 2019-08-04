@@ -20,6 +20,8 @@
 		2DCD954D1E0B4F2C00145EB5 /* fire_fighterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* fire_fighterTests.m */; };
 		9BB7516499909724B3525947 /* libPods-fire_fighter-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 78E38B706DE1BEE6D7F8995F /* libPods-fire_fighter-tvOS.a */; };
 		A908B0266214A65B312488D1 /* libPods-fire_fighterTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 812B3F353231DEACA79239CA /* libPods-fire_fighterTests.a */; };
+		BDE0537B22F6DDC900B6AA66 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDE0537822F6DDC700B6AA66 /* Fabric.framework */; };
+		BDE0537C22F6DDC900B6AA66 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDE0537A22F6DDC900B6AA66 /* Crashlytics.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +72,8 @@
 		9FF8909FC8159ED31C180288 /* libPods-fire_fighter-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-fire_fighter-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC25D7B83F1CB64DFBB9CFCF /* libPods-fire_fighter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-fire_fighter.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD5588CA22DCB7FB000BD12C /* RNGeocoder.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNGeocoder.xcodeproj; path = "../node_modules/react-native-geocoder/ios/RNGeocoder.xcodeproj"; sourceTree = "<group>"; };
+		BDE0537822F6DDC700B6AA66 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		BDE0537A22F6DDC900B6AA66 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		C99117F9F40EFCB6B98863F0 /* Pods-fire_fighter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fire_fighter.release.xcconfig"; path = "Target Support Files/Pods-fire_fighter/Pods-fire_fighter.release.xcconfig"; sourceTree = "<group>"; };
 		DC8F5CFDCD641D65777867F7 /* Pods-fire_fighter-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fire_fighter-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-fire_fighter-tvOSTests/Pods-fire_fighter-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
@@ -91,6 +95,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				18864BDCA0B43FE43266D8BD /* libPods-fire_fighter.a in Frameworks */,
+				BDE0537C22F6DDC900B6AA66 /* Crashlytics.framework in Frameworks */,
+				BDE0537B22F6DDC900B6AA66 /* Fabric.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -183,6 +189,8 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				BDE0537A22F6DDC900B6AA66 /* Crashlytics.framework */,
+				BDE0537822F6DDC700B6AA66 /* Fabric.framework */,
 				13B07FAE1A68108700A75B9A /* fire_fighter */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* fire_fighterTests */,
@@ -247,6 +255,7 @@
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				DC8FEA15A501BB43BF034AF3 /* [CP] Copy Pods Resources */,
+				BD37845D22F6D993006FEB9B /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -445,6 +454,23 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
+		};
+		BD37845D22F6D993006FEB9B /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" 2d28e057c964be10f40b0c22fae57c147c86eed0 42a6d5e6c183fa8595675cec86d028ebc8a64f91704c95bee4cba3e7cc3455e4\n";
 		};
 		BD8A79C0B8BED3285CB3D370 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -684,6 +710,10 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = 3C9Q3A4ALA;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = fire_fighter/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -704,6 +734,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3C9Q3A4ALA;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = fire_fighter/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (

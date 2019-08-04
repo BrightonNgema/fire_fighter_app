@@ -1,23 +1,27 @@
 /* eslint-disable comma-dangle */
 /* eslint-disable quotes */
 import React, { Component } from "react";
-import { View, StyleSheet, StatusBar, Image } from "react-native";
+import { View, StyleSheet, StatusBar, Image, Modal } from "react-native";
 import Geolocation from "@react-native-community/geolocation";
 import { TwoButtons } from "./Buttons";
 import { CancelButton } from "./CancelButton";
 import { GooglePlacesInput } from "./AutoComplete";
 import MapView, { Marker } from "react-native-maps";
 import Geocoder from "react-native-geocoder";
-import { TouchableOpacity } from "react-native";
+import DeviceInfo from "react-native-device-info";
+
 import CurrentLocationButton from "./CurrentLocation";
 import { withApollo } from "react-apollo";
 const fireIcon = "https://img.icons8.com/color/144/000000/fire-element.png";
 import { mutation } from "graphql-actions";
+import { TouchableOpacity } from "react-native";
+import { Text } from "react-native";
+import { Loader } from "../../common-component";
 
 const { addReport } = mutation;
 
 const Delta = {
-  latitudeDelta: 0.0322,
+  latitudeDelta: 0.0122,
   longitudeDelta: 0.0021
 };
 class Confirm extends Component {
@@ -31,6 +35,7 @@ class Confirm extends Component {
         fullAddress: ""
       },
       loading: true,
+      modalVisible: false,
       region: {
         latitude: 37.78825,
         longitude: -122.4324,
@@ -42,19 +47,30 @@ class Confirm extends Component {
   componentDidMount() {
     this.setState({ loading: false });
     this.currentLocation();
-    this.AddReport();
   }
 
   AddReport = async () => {
+    this.setState({ loading: true });
     try {
+      const {
+        address: { fullAddress, coords }
+      } = this.state;
       const data = await this.props.client.mutate({
         mutation: addReport,
         variables: {
-          username: "from mobile"
+          input: {
+            ipAddress: DeviceInfo.getIPAddress().then(ip => ip),
+            address: {
+              fulladdress: fullAddress,
+              geo: coords
+            }
+          }
         }
       });
-      return console.log(data);;
+
+      return this.setState({ loading: false, modalVisible: true });
     } catch (error) {
+      this.setState({ loading: true });
       const message = error.message.replace("GraphQL error: ", "");
       return { message, status: false };
     }
@@ -127,10 +143,92 @@ class Confirm extends Component {
   render() {
     const { loading, correctAddress } = this.state;
     if (loading) {
-      return null;
+      return <Loader />;
     }
     return (
       <View style={styles.MainContainer}>
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={this.state.modalVisible}
+        >
+          <View
+            style={{
+              flex: 1,
+              backgroundColor: "#fff",
+              justifyContent: "center"
+            }}
+          >
+            <TouchableOpacity
+              style={{
+                backgroundColor: "#000",
+                height: 30,
+                width: 30,
+                borderRadius: 15,
+                position: "absolute",
+                top: 50,
+                right: 20,
+                justifyContent: "center",
+                alignItems: "center"
+              }}
+              onPress={() => {
+                this.setState({ modalVisible: !this.state.modalVisible });
+                return this.props.navigation.goBack();
+              }}
+            >
+              <Text style={{ color: "#fff" }}>X</Text>
+            </TouchableOpacity>
+            <View
+              style={{
+                alignItems: "center",
+                alignSelf: "center"
+              }}
+            >
+              <Text
+                style={{
+                  fontSize: 30,
+                  textAlign: "center",
+                  paddingHorizontal: 20,
+                  marginBottom: 30,
+                  fontWeight: "bold"
+                }}
+              >
+                Thank You For Being A Great Citizen!
+              </Text>
+              <Text
+                style={{
+                  fontSize: 18,
+                  textAlign: "center",
+                  paddingHorizontal: 50,
+                  marginBottom: 30,
+                  fontWeight: "bold",
+                  color: "green"
+                }}
+              >
+                Your report has been successfully sent!
+              </Text>
+              <TouchableOpacity
+                onPress={() => {
+                  this.setState({ modalVisible: !this.state.modalVisible });
+                  return this.props.navigation.goBack();
+                }}
+              >
+                <Image
+                  source={{
+                    uri:
+                      "https://sssc.vic.edu.au/wp-content/uploads/2018/08/checkmark.gif"
+                  }}
+                  style={{
+                    height: 100,
+                    width: 100,
+                    resizeMode: "contain",
+                    borderRadius: 50
+                  }}
+                />
+              </TouchableOpacity>
+            </View>
+          </View>
+        </Modal>
         <StatusBar barStyle="dark-content" />
         <View style={{ height: "100%" }}>
           <MapView
@@ -165,7 +263,7 @@ class Confirm extends Component {
         </View>
         <View style={{ position: "absolute", bottom: 0, width: "100%" }}>
           <TwoButtons
-            onConfirm={() => alert(JSON.stringify(this.state.address))}
+            onConfirm={this.AddReport}
             onCorrectAddress={this.correctAddress}
             {...this.state}
           />

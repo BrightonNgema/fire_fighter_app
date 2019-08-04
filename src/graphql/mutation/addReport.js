@@ -1,10 +1,22 @@
-import { gql } from "react-apollo";
+import { gql } from 'react-apollo';
 
 const addReport = gql`
-  mutation addReport($username: String!) {
-    addReport(username: $username) {
+  mutation addReport($input: ReportInput!) {
+    addReport(input: $input) {
       _id
-      username
+      cellnumber
+      deviceId
+      ipAddress
+      status
+      level
+      address {
+        fulladdress
+        geo {
+          lat
+          lng
+        }
+      }
+      createdDate
     }
   }
 `;

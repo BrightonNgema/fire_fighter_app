@@ -1,7 +1,14 @@
-import React from "react";
-import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
+import React from 'react';
+import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 
-const TwoButtons = ({ onCorrectAddress, onConfirm, correctAddress }) => {
+const TwoButtons = ({
+  onCorrectAddress,
+  onConfirm,
+  correctAddress,
+  address
+}) => {
+  const isDisabled = address.fullAddress.length < 5;
+  const buttonStyle = isDisabled ? styles.disabled : styles.red;
   return (
     <View style={styles.bottomView}>
       <TouchableOpacity
@@ -10,15 +17,18 @@ const TwoButtons = ({ onCorrectAddress, onConfirm, correctAddress }) => {
         style={{ ...styles.Buttons, ...styles.yellow }}
       >
         <Text style={styles.blackText}>
-          {!correctAddress ? "CORRECT ADDRESS" : "CANCEL"}
+          {!correctAddress ? 'ENTER CORRECT ADDRESS' : 'CANCEL'}
         </Text>
       </TouchableOpacity>
       <TouchableOpacity
+        disabled={isDisabled}
         onPress={onConfirm}
         activeOpacity={0.7}
-        style={{ ...styles.Buttons, ...styles.red }}
+        style={{ ...styles.Buttons, ...buttonStyle }}
       >
-        <Text style={styles.whiteText}> CONFIRM</Text>
+        <Text style={styles.whiteText}>
+          {isDisabled ? "GETTING LOCATION..." : "SEND REPORT"}
+        </Text>
       </TouchableOpacity>
     </View>
   );
@@ -26,23 +36,27 @@ const TwoButtons = ({ onCorrectAddress, onConfirm, correctAddress }) => {
 
 const styles = StyleSheet.create({
   bottomView: {
-    width: "100%"
+    width: '100%',
   },
   Buttons: {
     flex: 1,
     height: 60,
-    width: "100%",
-    justifyContent: "center",
-    alignItems: "center"
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   yellow: {
-    backgroundColor: "#FFF200"
+    backgroundColor: '#FFF200',
   },
   red: {
-    backgroundColor: "#E1251C"
+    backgroundColor: '#E1251C',
   },
-  blackText: { fontSize: 20, fontWeight: "800", color: "#000" },
-  whiteText: { fontSize: 20, fontWeight: "800", color: "#fff" }
+  disabled: {
+    backgroundColor: '#4a4a4a'
+    // opacity: 0.2,
+  },
+  blackText: { fontSize: 20, fontWeight: '800', color: '#000' },
+  whiteText: { fontSize: 20, fontWeight: '800', color: '#fff' },
 });
 
 export { TwoButtons };

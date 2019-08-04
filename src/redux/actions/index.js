@@ -1,5 +1,4 @@
-import { login } from './login';
-import { logout } from './logout';
+import { cellAvail } from './cellAvail';
 import { onboard } from './onboard';
 
-export { login, logout, onboard };
+export { cellAvail, onboard };
