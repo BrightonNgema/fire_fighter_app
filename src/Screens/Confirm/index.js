@@ -28,6 +28,7 @@ class Confirm extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      ip: "",
       currentLoc: true,
       correctAddress: false,
       address: {
@@ -44,22 +45,25 @@ class Confirm extends Component {
     };
   }
 
-  componentDidMount() {
+  componentDidMount = async () => {
     this.setState({ loading: false });
     this.currentLocation();
-  }
+    const IP = await DeviceInfo.getIPAddress();
+    this.setState({ ip: IP });
+  };
 
   AddReport = async () => {
     this.setState({ loading: true });
     try {
       const {
+        ip,
         address: { fullAddress, coords }
       } = this.state;
       const data = await this.props.client.mutate({
         mutation: addReport,
         variables: {
           input: {
-            ipAddress: DeviceInfo.getIPAddress().then(ip => ip),
+            ipAddress: ip,
             address: {
               fulladdress: fullAddress,
               geo: coords

@@ -8,8 +8,8 @@ import thunk from 'redux-thunk';
 import { reduxStore } from 'redux-actions';
 
 const networkInterface = createNetworkInterface({
-  // uri: "http://localhost:4000/",
-  uri: "https://fire-report-api.now.sh/",
+  // uri: 'http://localhost:4000/'
+  uri: 'https://fire-report-api.now.sh/'
 });
 
 networkInterface.use([
@@ -20,9 +20,8 @@ networkInterface.use([
       }
       try {
         const token = await AsyncStorage.getItem('@token');
-        console.log(token);
         if (token) {
-          req.options.headers.authorization = token || '';
+          req.options.headers.authorization = JSON.parse(token) || '';
         }
       } catch (error) {
         throw error;
