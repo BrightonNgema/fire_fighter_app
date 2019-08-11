@@ -117,7 +117,8 @@ class Confirm extends Component {
     this.setState({
       region: {
         latitude: details.geometry.location.lat,
-        longitude: details.geometry.location.lng
+        longitude: details.geometry.location.lng,
+        ...Delta
       },
       address: {
         coords: details.geometry.location,
